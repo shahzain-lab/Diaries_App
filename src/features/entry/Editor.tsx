@@ -9,6 +9,7 @@ import http from '../../services/API';
 import { Diary } from '../../interfaces/diary.interface';
 import { Entry } from '../../interfaces/entry.interface';
 import { updateDiary } from '../diary/diarySlice';
+import { updateEntry } from './entrySlice';
 
 const Editor: FC =()=> {
     const { currentlyEditing:entry, canEdit, activeDiaryId } = useSelector(
@@ -31,6 +32,97 @@ const Editor: FC =()=> {
                     dispatch(updateDiary(diary))
                 }
             })
+        }else {
+            http.put<Entry, Entry>(`diaries/entry/${entry.id}`, editedEntry).then((_entry) => {
+                if(_entry !== null ){
+                    dispatch(setCurrentlyEditing(_entry));
+                    dispatch(updateEntry(_entry))
+                }
+            })
         }
-    }
-}
+        dispatch(setCanEdit(false))
+    };
+    useEffect(() => {
+        updateEditedEntry(entry);
+    }, [entry]);
+
+    return(
+        <div className="editor">
+           <header 
+            style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                marginBottom: '0.2em',
+                paddingBottom: '0.2em',
+                borderBottom: '1px solid rgba(0,0,0,0.1)',
+            }}
+           >
+               {entry && !canEdit ? (
+                   <h4>
+                       {entry.title}
+                       <a 
+                        href="#edit"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if(entry != null){
+                                dispatch(setCanEdit(true))
+                            }
+                        }}
+                        style={{ marginLeft: '0.4em' }}
+                       >
+                            (Edit)
+                       </a>
+                   </h4>
+               ): (
+                   <input 
+                    value= {editedEntry?.title ?? '' }
+                    disabled={!canEdit}
+                    onChange={e => {
+                        if(editedEntry) {
+                            updateEditedEntry({
+                                ...editedEntry,
+                                title: e.target.value
+                            });
+                        }else {
+                            updateEditedEntry({
+                                title: e.target.value,
+                                content: '',
+                            })
+                        }
+                    }}
+                   />
+               )}
+           </header>
+           {entry && !canEdit ? (
+               <MarkDown>{entry.content}</MarkDown>
+           ): (
+               <>
+               <textarea
+                 disabled={!canEdit}
+                 placeholder="Support Markdown"
+                 value = {editedEntry?.content ?? ''}
+                 onChange = {e => {
+                     if(editedEntry) {
+                         updateEditedEntry({
+                             ...editedEntry,
+                             content: e.target.value,
+                         });
+                     }else {
+                         updateEditedEntry({
+                             title: '',
+                             content: e.target.value
+                         })
+                     }
+                 }}
+               />
+               <button onClick={saveEntry} disabled={!canEdit}>
+                   Save
+               </button>
+               </>
+           )}
+        </div>
+    )
+};
+
+export default Editor;
