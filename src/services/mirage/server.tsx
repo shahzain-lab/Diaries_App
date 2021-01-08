@@ -39,6 +39,8 @@ export const setupServer = (env?: string): Server => {
         seeds: (server): any => {
             server.create('user');
         },
+        
+        ///routes for communicating with network requests
         routes(): void{
             this.urlPrefix = 'https://diaries.app';
         }
