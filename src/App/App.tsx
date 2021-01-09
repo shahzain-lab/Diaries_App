@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
-const Auth = lazy(() => import('../features/auth/authSlice'));
+const Auth = lazy(() => import('../features/auth/Auth'));
 const Home = lazy(() => import('../features/home/Home'));
 
 const App: FC =()=> {
