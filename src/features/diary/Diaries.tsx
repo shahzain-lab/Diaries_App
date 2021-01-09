@@ -95,3 +95,5 @@ const Diaries: FC = () => {
         </div>
     )
 }
+
+export default Diaries;
