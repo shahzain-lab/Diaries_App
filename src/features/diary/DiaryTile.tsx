@@ -22,7 +22,7 @@ const buttonStyle: React.CSSProperties = {
       const totalEntries = props.diary?.entryIds?.length;
 
       const saveChanges = () => {
-          http.put<Diary, Diary>(`/diaries/${diary.id}`, diary).then(diary => {
+          http.put<Diary, Diary>(`/diaries/${diary.id}`, diary).then((diary) => {
               if(diary) {
                   dispatch(updateDiary(diary));
                   showAlert('Saved!', 'success');
