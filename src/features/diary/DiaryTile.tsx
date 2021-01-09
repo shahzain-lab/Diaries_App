@@ -2,7 +2,7 @@ import React,{FC, useState} from 'react';
 import { Diary } from '../../interfaces/diary.interface';
 import { useDispatch } from 'react-redux';
 import http from '../../services/API';
-import { updateDiary } from '../../services/mirage/routes/diary';
+import { updateDiary } from './diarySlice';
 import { showAlert } from '../../util';
 import { Link } from 'react-router-dom';
 

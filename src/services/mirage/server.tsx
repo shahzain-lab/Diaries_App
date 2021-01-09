@@ -53,6 +53,9 @@ export const setupServer = (env?: string): Server => {
             this.post('/auth/login', user.login);
             this.post('/auth/signup', user.signup);
 
+            this.post("/diaries/", diary.create);
+            this.post("/diaries/entry/:id", diary.addEntry)
+
             this.put('/diaries/entry/:id', diary.updateEntry);
             this.put('/diaries/:id',diary.updateDiary);
         }

@@ -11,7 +11,7 @@ import { setCurrentlyEditing, setCanEdit } from '../entry/editorSlice';
 const DiaryEntriesList: FC = () => {
     const { entries } = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { id }:any = useParams();
 
     useEffect(() => {
         if(id != null) {
