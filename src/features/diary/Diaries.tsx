@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../App/store';
 import { RootState } from '../../App/rootReducer';
 import http from '../../services/API';
 import DiaryEntryList from './DiaryEntryList';
-import UtilRoute from './UtilRoute';
+import DiaryBoard from './DiaryBoard';
 
 const Diaries: FC = () => {
     const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ const Diaries: FC = () => {
     return (
         <div style={{ padding: '1em 0.4em' }}>
             <Routes>
-                <Route path="/" element={<UtilRoute />} />
+                <Route path="/" element={<DiaryBoard />} />
                 <Route path="diary/:id" element={<DiaryEntryList />} />
             </Routes>
         </div>

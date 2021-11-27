@@ -10,7 +10,7 @@ import { setUser } from '../auth/userSlice';
 import { addDiary } from './diariesSlice';
 import DiaryTiles from './DiaryTiles';
 
-const UtilRoute = () => {
+const DiaryBoard = () => {
     const user: any = useSelector((state: RootState) => state.user);
     const diaries = useSelector((state: RootState) => state.diaries)
     const dispatch = useAppDispatch();
@@ -70,4 +70,4 @@ const UtilRoute = () => {
     )
 }
 
-export default UtilRoute
+export default DiaryBoard
